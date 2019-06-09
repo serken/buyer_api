@@ -27,13 +27,12 @@ ActiveRecord::Schema.define(version: 2019_06_09_134614) do
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string "name", default: "", null: false
+    t.string "name", null: false
     t.boolean "active", default: true, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "ancestry"
     t.index ["ancestry"], name: "index_categories_on_ancestry"
-    t.index ["name"], name: "index_categories_on_name", unique: true
   end
 
   create_table "comments", force: :cascade do |t|
