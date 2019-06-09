@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :categories
   resources :attachments
 
+  post :sign_in, to: 'session#sign_in'
+
 end
