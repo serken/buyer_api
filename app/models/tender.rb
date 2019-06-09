@@ -5,4 +5,8 @@ class Tender < ApplicationRecord
   belongs_to :user
 
   alias :owner :user
+
+  def self.allowed_attributes
+    %i(title)
+  end
 end
