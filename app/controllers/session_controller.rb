@@ -5,16 +5,18 @@ class SessionController < ApplicationController
   rescue_from InvalidCredentialsException, with: -> { render json: { error: 'Invalid credentials' }, status: 401 }
 
   def sign_in
-    user = User.where(email: params[:email], password: params[:password])
-             .or(User.where(login: params[:email], password: params[:password])).first
+    user = User.where(email: session_params[:login], password: session_params[:password])
+             .or(User.where(login: session_params[:login], password: session_params[:password])).first
+
     if user
       session[:current_user_id] = user.id
+      render json: user
     else
       raise InvalidCredentialsException
     end
   end
 
   def session_params
-    params.require(:session).permit(:email, :password)
+    params.require(:session).permit(:login, :password)
   end
 end
