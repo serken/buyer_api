@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :find_user, only: %i(show update destroy)
+  skip_before_action :authenticate_user, only: :create
 
   def index
     render json: User.all

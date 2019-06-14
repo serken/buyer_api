@@ -23,6 +23,8 @@ class SessionController < ApplicationController
     else
       render json: { error: 'Session expired' }
     end
+  rescue
+    render json: { error: 'Session expired' }
   end
 
   def destroy
