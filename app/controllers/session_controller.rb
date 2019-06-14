@@ -6,7 +6,7 @@ class SessionController < ApplicationController
              .or(User.where(login: session_params[:login], password: session_params[:password])).first
 
     if user
-      created_jwt = JWT.encode { id: user.id }, nil, 'none'
+      created_jwt = JWT.encode({ id: user.id }, nil, 'none')
       cookies.signed[:jwt] = { value: created_jwt, httponly: true, expires: 1.hour.from_now }
       render json: user
     else
