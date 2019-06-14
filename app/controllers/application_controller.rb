@@ -16,8 +16,8 @@ class ApplicationController < ActionController::API
 
   def authenticate_user
     jwt = cookies.signed[:jwt]
-    decoded_jwt = JWT.decode token, nil, false
-    @current_user = User.find_by_id(decoded_jwt[:id])
+    decoded_jwt = JWT.decode jwt, nil, false
+    @current_user = User.find_by_id(decoded_jwt[0]['id'])
     raise NotAuthorizedException unless @current_user
   end
 end

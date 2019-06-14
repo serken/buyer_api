@@ -10,5 +10,6 @@ Rails.application.routes.draw do
 
   post :auth, to: 'session#sign_in'
   delete :auth, to: 'session#destroy'
+  get :auth, to: 'session#restore'
 
 end

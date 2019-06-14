@@ -14,6 +14,17 @@ class SessionController < ApplicationController
     end
   end
 
+  def restore
+    jwt = cookies.signed[:jwt]
+    decoded_jwt = JWT.decode jwt, nil, false
+    user = User.find_by_id(decoded_jwt[0]['id'])
+    if user
+      render json: user
+    else
+      render json: { error: 'Session expired' }
+    end
+  end
+
   def destroy
     cookies.delete(:jwt)
   end
