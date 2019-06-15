@@ -1,5 +1,6 @@
 class TendersController < ApplicationController
   before_action :find_tender, only: %i(show update destroy)
+  skip_before_action :authenticate_user, only: :index
 
   def index
     render json: Tender.all
