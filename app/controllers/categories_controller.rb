@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :find_category, only: %i(show update destroy)
+  skip_before_action :authenticate_user, only: :index
 
   def index
     render json: Category.all
