@@ -1,13 +1,13 @@
 class TendersController < ApplicationController
-  before_action :find_tender, only: %i(show update destroy)
-  skip_before_action :authenticate_user, only: :index
+  before_action :find_tender, only: %i(update destroy)
+  skip_before_action :authenticate_user, only: %w(index show)
 
   def index
     render json: Tender.all
   end
 
   def create
-    tender = Tender.new(tender_params)
+    tender = current_user.tenders.new(tender_params)
 
     if tender.save
       render json: tender
@@ -37,7 +37,7 @@ class TendersController < ApplicationController
   private
 
   def find_tender
-    @tender = Tender.find(params[:id])
+    @tender = current_user.tenders.find(params[:id])
   end
 
   def tender_params

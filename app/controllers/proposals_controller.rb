@@ -1,5 +1,6 @@
 class ProposalsController < ApplicationController
   before_action :find_proposal, only: %i(show update destroy)
+  before_action :find_tender, only: %i(create)
 
   def index
     render json: Proposal.all
@@ -35,8 +36,12 @@ class ProposalsController < ApplicationController
 
   private
 
+  def find_tender
+    current_user.tenders.find(params[:tender_id])
+  end
+
   def find_proposal
-    @proposal = Proposal.find(params[:id])
+    @proposal = current_user.proposals.find(params[:id])
   end
 
   def proposal_params
