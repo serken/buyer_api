@@ -3,7 +3,7 @@ class TendersController < ApplicationController
   skip_before_action :authenticate_user, only: %w(index show)
 
   def index
-    render json: Tender.includes(:category).includes(:user).all
+    render json: Tender.includes(:category).includes(:proposals).includes(:user).all
   end
 
   def create
@@ -25,6 +25,7 @@ class TendersController < ApplicationController
   end
 
   def show
+    @tender = Tender.find(params[:id])
     render json: @tender
   end
 
